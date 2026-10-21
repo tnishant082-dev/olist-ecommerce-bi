@@ -1,0 +1,88 @@
+/// One row per customer_unique_id with cohort and RFM segment
+table dim_customer
+	lineageTag: 363b40db-d7bc-5e69-b65b-1f48fc431b30
+
+	column customer_key
+		dataType: string
+		lineageTag: a32f768c-8a4f-5af1-805a-c087667db43a
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: ab795a5f-3d7d-5df6-88f3-865bc8a8b741
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: cbb1390a-dd92-5592-9948-2d9e297ae2fe
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_order_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 57a314da-0e4c-5a9b-b751-2c73868154ea
+		summarizeBy: none
+		sourceColumn: first_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_order_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 0a01d393-48c9-5829-950e-40760228d29c
+		summarizeBy: none
+		sourceColumn: last_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column orders
+		dataType: int64
+		formatString: 0
+		lineageTag: b05a73db-0112-507f-9dda-da647972d8ba
+		summarizeBy: none
+		sourceColumn: orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_month
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 3f6d273e-ccab-5ed0-b9e2-5057bb387757
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type
+		dataType: string
+		lineageTag: 90e51a41-905a-53bd-87a8-6a32da982def
+		summarizeBy: none
+		sourceColumn: customer_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column rfm_segment
+		dataType: string
+		lineageTag: 6ca36e8a-7acb-5a9e-ae55-39754ff11448
+		summarizeBy: none
+		sourceColumn: rfm_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\dim_customer.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"customer_key", type text}, {"city", type text}, {"state", type text}, {"first_order_date", type date}, {"last_order_date", type date}, {"orders", Int64.Type}, {"cohort_month", type date}, {"customer_type", type text}, {"rfm_segment", type text}} )
+				in
+				    Typed

@@ -1,0 +1,54 @@
+/// Products with english category
+table dim_product
+	lineageTag: 50392070-3175-5977-82cd-b43fc159408b
+
+	column product_key
+		dataType: string
+		lineageTag: 4db3d368-dd28-5d20-bac5-fb12673e7104
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: e3304d26-cf31-5229-9cdd-4db3f3f5ceed
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight_g
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 178a1e48-544a-59c5-a948-31280d79bd6b
+		summarizeBy: none
+		sourceColumn: weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column photos
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1d8c52db-2d06-5b66-8372-2200c0a84411
+		summarizeBy: none
+		sourceColumn: photos
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight_band
+		dataType: string
+		lineageTag: 5c77e519-9a1d-516c-b112-4aa11f92a218
+		summarizeBy: none
+		sourceColumn: weight_band
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\dim_product.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"product_key", type text}, {"category", type text}, {"weight_g", type number}, {"photos", type number}, {"weight_band", type text}} )
+				in
+				    Typed

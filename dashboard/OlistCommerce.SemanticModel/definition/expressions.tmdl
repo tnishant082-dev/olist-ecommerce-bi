@@ -1,0 +1,5 @@
+/// Full path to the repo's data\powerbi folder, e.g. C:\olist-ecommerce-bi\data\powerbi
+expression DataFolder = "C:\\olist-ecommerce-bi\\data\\powerbi" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 74441dbe-0b16-5563-885b-f92ec5a3e8b1
+
+	annotation PBI_ResultType = Text

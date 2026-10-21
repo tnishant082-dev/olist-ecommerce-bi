@@ -1,0 +1,36 @@
+/// Marketplace sellers
+table dim_seller
+	lineageTag: e9b9a15b-ffce-57db-aac1-92bbe86a6a4d
+
+	column seller_key
+		dataType: string
+		lineageTag: 8b9cc420-ce03-5ce4-9cae-19cbc56d5577
+		summarizeBy: none
+		sourceColumn: seller_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: ae360f65-a426-5fe6-b405-1dde99229f5f
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: 1d61081f-5c68-54cf-973d-6903ddb70339
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_seller = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\dim_seller.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"seller_key", type text}, {"city", type text}, {"state", type text}} )
+				in
+				    Typed

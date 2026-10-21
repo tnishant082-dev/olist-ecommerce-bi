@@ -1,0 +1,36 @@
+/// Brazilian states and regions (customer side)
+table dim_state
+	lineageTag: d7290dde-03f0-5540-bd16-6dc98e641c02
+
+	column state
+		dataType: string
+		lineageTag: 0ad45df0-bcde-55ac-bbbd-8f404c3d9084
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column state_name
+		dataType: string
+		lineageTag: 3ea7a667-2d6d-5eca-a8b1-13296b73ba4e
+		summarizeBy: none
+		sourceColumn: state_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 4ef85b9d-2928-57b2-b2e1-85bf46470179
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_state = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\dim_state.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"state", type text}, {"state_name", type text}, {"region", type text}} )
+				in
+				    Typed

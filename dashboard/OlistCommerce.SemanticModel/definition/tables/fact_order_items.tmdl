@@ -1,0 +1,138 @@
+/// Order line grain fact (product x seller)
+table fact_order_items
+	lineageTag: c477b8bb-2fa9-54a3-ac22-2453998252f8
+
+	column order_id
+		dataType: string
+		isHidden
+		lineageTag: 3dc518cc-d779-56b0-965c-52c832fb68ac
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ab93fdf6-89e1-52b5-a21c-a30a2a988560
+		summarizeBy: none
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		isHidden
+		lineageTag: 1944894a-f241-5440-8f1b-d48d2dcf67e3
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_key
+		dataType: string
+		isHidden
+		lineageTag: f8583036-c083-5bf0-a452-1a1e65aa8244
+		summarizeBy: none
+		sourceColumn: seller_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		isHidden
+		lineageTag: 962744e5-95c0-5c2f-8c91-c5ec4399e6dd
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: a40741ee-843e-5b97-8d87-686ab7a7b03b
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 033f5f37-38b7-5a6b-949b-c2547151dac2
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_valid
+		dataType: int64
+		formatString: 0
+		lineageTag: 4685e806-e535-5954-8e7b-9df49b7c5973
+		summarizeBy: none
+		sourceColumn: is_valid
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 3a6b79a4-6b66-5a35-b88a-22c9e100dd25
+		summarizeBy: none
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 4a5dbccf-69be-5385-ab95-a899de842a57
+		summarizeBy: none
+		sourceColumn: freight
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: a61b017e-6c85-58fb-86ec-6c27fe2276a0
+		summarizeBy: none
+		sourceColumn: line_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 6aa24018-c4fa-5d0b-89fd-17b7416eb1c0
+		summarizeBy: none
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: int64
+		formatString: 0
+		lineageTag: a5a579b2-a03e-5374-abc9-4af7b3945e34
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column same_state
+		dataType: int64
+		formatString: 0
+		lineageTag: 8407f95b-af76-5a86-a264-1ce222dab76d
+		summarizeBy: none
+		sourceColumn: same_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_order_items = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\fact_order_items.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"order_id", type text}, {"order_item_id", Int64.Type}, {"product_key", type text}, {"seller_key", type text}, {"customer_key", type text}, {"date_key", Int64.Type}, {"order_status", type text}, {"is_valid", Int64.Type}, {"price", type number}, {"freight", type number}, {"line_value", type number}, {"review_score", Int64.Type}, {"is_late", Int64.Type}, {"same_state", Int64.Type}} )
+				in
+				    Typed

@@ -1,0 +1,182 @@
+/// Order grain fact, one row per olist order
+table fact_orders
+	lineageTag: ea1f5143-afed-5429-ba37-edb8c72cb118
+
+	column order_id
+		dataType: string
+		isHidden
+		lineageTag: 15a61e9c-a911-5ef6-aa6a-e249a2a2541e
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: string
+		isHidden
+		lineageTag: 70e08b24-33ae-5660-8007-bd728252676e
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		isHidden
+		lineageTag: d8463ce0-882b-53be-b39b-dbb557dca218
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 98c6aca6-21f3-5df7-9226-6d12d0a01b1b
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchased_at
+		dataType: dateTime
+		formatString: yyyy-mm-dd hh:nn
+		lineageTag: 8d3d24de-4af5-5f95-9856-d991d41c5579
+		summarizeBy: none
+		sourceColumn: purchased_at
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 962ffc3f-4ca8-503f-b64c-f0f608bae8de
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_valid
+		dataType: int64
+		formatString: 0
+		lineageTag: f4c94f81-e164-52d0-8116-d2eff7b78967
+		summarizeBy: none
+		sourceColumn: is_valid
+
+		annotation SummarizationSetBy = Automatic
+
+	column items
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dc97fb0-5769-5bf2-b4fb-d206e851594d
+		summarizeBy: none
+		sourceColumn: items
+
+		annotation SummarizationSetBy = Automatic
+
+	column sellers
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fb41a26-841d-5aaa-9b83-cd8fa9acfa85
+		summarizeBy: none
+		sourceColumn: sellers
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 51543b59-4d9c-57f4-860a-2353a3cd0207
+		summarizeBy: none
+		sourceColumn: item_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: be9c6fd2-ba5f-5c9e-adbe-f1c69048ab13
+		summarizeBy: none
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c12ce1cc-5e43-55c6-8d9c-b0c13f2f6edb
+		summarizeBy: none
+		sourceColumn: order_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7e81fa64-fb6d-5648-a09c-3536c6318457
+		summarizeBy: none
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: 57827380-df72-51ac-954b-13b11baf3233
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column installments
+		dataType: int64
+		formatString: 0
+		lineageTag: 12d58863-2026-5dd0-9644-320d320c7c05
+		summarizeBy: none
+		sourceColumn: installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 75df0e00-81e4-5eac-ba65-207ff3c5fb70
+		summarizeBy: none
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column promised_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c8dbaa2-e9ff-5ae9-a7d1-6fe796a7dc84
+		summarizeBy: none
+		sourceColumn: promised_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: int64
+		formatString: 0
+		lineageTag: 68b32da5-00f6-5113-99ce-39339c8aa979
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 982952bb-ae35-5caf-bb3b-7b3ffdf75cf3
+		summarizeBy: none
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_orders = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\fact_orders.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"order_id", type text}, {"customer_key", type text}, {"customer_state", type text}, {"date_key", Int64.Type}, {"purchased_at", type datetime}, {"order_status", type text}, {"is_valid", Int64.Type}, {"items", Int64.Type}, {"sellers", Int64.Type}, {"item_value", type number}, {"freight_value", type number}, {"order_value", type number}, {"payment_value", type number}, {"payment_type", type text}, {"installments", Int64.Type}, {"delivery_days", Int64.Type}, {"promised_days", Int64.Type}, {"is_late", Int64.Type}, {"review_score", Int64.Type}} )
+				in
+				    Typed

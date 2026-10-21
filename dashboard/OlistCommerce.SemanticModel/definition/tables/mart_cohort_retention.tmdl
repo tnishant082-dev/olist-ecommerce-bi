@@ -1,0 +1,57 @@
+/// Monthly acquisition cohorts from SQL mart
+table mart_cohort_retention
+	lineageTag: b26ebd81-b987-5ff8-984d-4007f3f75b5b
+
+	column cohort_month
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 463ebbb4-1208-505e-b9c7-376190e11aea
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_n
+		dataType: int64
+		formatString: 0
+		lineageTag: d0fde618-536a-5c1e-a267-bc6cc2f1b22e
+		summarizeBy: none
+		sourceColumn: month_n
+
+		annotation SummarizationSetBy = Automatic
+
+	column customers
+		dataType: int64
+		formatString: 0
+		lineageTag: a936198a-55b5-5c06-9238-cb38ee1a846b
+		summarizeBy: none
+		sourceColumn: customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_size
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c588d27-b2b2-5a46-a350-6919e4ba70c5
+		summarizeBy: none
+		sourceColumn: cohort_size
+
+		annotation SummarizationSetBy = Automatic
+
+	column retention
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 61bf5c3e-000c-567e-af24-7d09552acdb4
+		summarizeBy: none
+		sourceColumn: retention
+
+		annotation SummarizationSetBy = Automatic
+
+	partition mart_cohort_retention = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document ( File.Contents ( DataFolder & "\mart_cohort_retention.parquet" ) ),
+				    Typed = Table.TransformColumnTypes ( Source, {{"cohort_month", type date}, {"month_n", Int64.Type}, {"customers", Int64.Type}, {"cohort_size", Int64.Type}, {"retention", type number}} )
+				in
+				    Typed
