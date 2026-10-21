@@ -48,7 +48,10 @@ def main():
 
     for t in EXPORT:
         out = (PBI / f"{t}.parquet").as_posix()
-        con.execute(f"copy {t} to '{out}' (format parquet, compression zstd)")
+        # decimals go out as double, power query reads those without fuss
+        cols = con.execute(f"describe {t}").fetchall()
+        sel = ", ".join(f"{c[0]}::double as {c[0]}" if c[1].startswith("DECIMAL") else c[0] for c in cols)
+        con.execute(f"copy (select {sel} from {t}) to '{out}' (format parquet, compression zstd)")
         n = con.execute(f"select count(*) from {t}").fetchone()[0]
         print(f"export {t:24s} {n:>8,d}")
     con.close()
