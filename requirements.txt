@@ -3,3 +3,4 @@ duckdb>=1.0
 openpyxl>=3.1
 matplotlib>=3.7
 pyarrow>=14
+jsonschema>=4.20
