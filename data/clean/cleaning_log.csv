@@ -1,0 +1,8 @@
+table,step,rows_before,rows_after
+orders,dedupe order_id,99441,99441
+customers,load,99441,99441
+order_items,drop non-positive price,112650,112650
+payments,drop zero value payments,103886,103877
+reviews,one review per order,100000,99441
+products,translate category,32951,32951
+sellers,load,3095,3095
