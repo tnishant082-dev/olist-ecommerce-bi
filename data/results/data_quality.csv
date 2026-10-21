@@ -1,0 +1,13 @@
+check_name,bad_rows,status
+fact_orders duplicate order_id,0,pass
+fact_order_items duplicate line,0,pass
+items without product in dim_product,0,pass
+items without seller in dim_seller,0,pass
+orders without date in dim_date,0,pass
+orders without customer in dim_customer,0,pass
+negative order value,0,pass
+review score outside 1-5,0,pass
+delivered before purchase,0,pass
+customer state not in dim_state,0,pass
+seller state not in dim_state,0,pass
+warn: valid orders with payment gap > 5 BRL,5,warn
