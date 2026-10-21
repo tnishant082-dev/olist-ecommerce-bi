@@ -91,7 +91,7 @@ screenshots/charts/ matplotlib charts (not power bi)
 
 12 checks run on every build (`data/results/data_quality.csv`): key uniqueness, orphan keys against every dimension, negative values, review score range, delivery before purchase, unknown states. 11 pass. One is a warning on purpose: 5 single-installment orders where payment differs from items + freight by more than 5 BRL, a known quirk of the source (vouchers / adjustments) that I left as is.
 
-Cleaning notes: reviews table has 559 orders with more than one review, I keep the latest answered one. Two categories are missing from the official translation file and are mapped by hand. 9 zero-value payments dropped. Review text is dropped (not used, Portuguese free text).
+Cleaning notes: some orders have more than one review (559 extra rows), I keep the latest answered one. Two categories are missing from the official translation file and are mapped by hand. 9 zero-value payments dropped. Review text is dropped (not used, Portuguese free text).
 
 ## Validation
 
