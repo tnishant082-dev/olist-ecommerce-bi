@@ -1,0 +1,6 @@
+payment_type,orders,share,aov,avg_installments
+credit_card,74116,0.7547,166.6,3.55
+boleto,19539,0.199,144.66,1.0
+voucher,3037,0.0309,114.93,1.15
+debit_card,1514,0.0154,140.3,1.0
+unknown,1,0.0,143.46,

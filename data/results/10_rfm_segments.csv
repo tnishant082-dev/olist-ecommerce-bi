@@ -1,0 +1,8 @@
+segment,customers,revenue,revenue_share,avg_recency_days
+new big spenders,14651,4443689.64,0.2824,141.0
+lost big spenders,13996,4326869.36,0.275,444.0
+need attention,18378,2788175.65,0.1772,269.0
+lost,22972,1671057.95,0.1062,445.0
+new low spenders,22105,1615475.93,0.1027,139.0
+"loyal, slipping",1648,491695.8,0.0312,370.0
+champions,1240,398562.7,0.0253,138.0
